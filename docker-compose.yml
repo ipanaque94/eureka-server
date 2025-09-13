@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  eureka-server:
+    build: ./eureka-server
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - microservices-net
+
+  transaction-service:
+    build: ./transaction-service
+    container_name: transaction-service
+    depends_on:
+      - eureka-server
+    networks:
+      - microservices-net
+
+networks:
+  microservices-net:
+    driver: bridge
